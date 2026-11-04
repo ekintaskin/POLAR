@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "dmri-protocol-opt"
+type: software
+license: Apache-2.0
+version: 0.1.0
+authors:
+  - family-names: Taskin
+    given-names: Ekin
+preferred-citation:
+  type: article
+  title: "Diffusion MRI protocol design for reliable parameter recovery: a unified framework across biophysical models"
+  authors:
+    - family-names: Taskin
+      given-names: Ekin
+    - family-names: Rafael-Patiño
+      given-names: Jonathan
+    - family-names: Canales-Rodríguez
+      given-names: Erick Jorge
+    - family-names: Thiran
+      given-names: Jean-Philippe
+  journal: "arXiv preprint arXiv:2610.28099"
+  year: 2026
+  month: 10
+  url: "https://arxiv.org/abs/2610.28099"

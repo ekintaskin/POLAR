@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dmri-protocol-opt"
+description = "Diffusion MRI protocol design for reliable parameter recovery: a unified framework across biophysical models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Ekin Taskin" }]
+dynamic = ["version"]
+keywords = ["diffusion MRI", "protocol optimization", "microstructure imaging"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "cma>=4.0",
+    "joblib>=1.3",
+    "numpy>=1.24",
+    "pyyaml>=6",
+    "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+dmri-protocol-opt = "dmri_protocol_opt.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "dmri_protocol_opt.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: statistical checks that take more than a few seconds"]
