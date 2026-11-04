@@ -1,6 +1,11 @@
-# dmri-protocol-opt
+# POLAR
+
+**Protocol Optimization via Loss Assessing Parameter Recovery**
 
 Diffusion MRI protocol design for reliable parameter recovery: a unified framework across biophysical models
+
+To use POLAR with any signal model, follow [model interface](docs/adding_a_model.md).
+[CEXI](#example-signal-model-cexi) is demonstrated as an example signal model.
 
 ## How it works
 
@@ -18,8 +23,8 @@ Diffusion MRI protocol design for reliable parameter recovery: a unified framewo
 Python >= 3.10
 
 ```bash
-git clone https://github.com/ekintaskin/dmri-protocol-opt.git
-cd dmri-protocol-opt
+git clone https://github.com/ekintaskin/POLAR.git
+cd POLAR
 python -m venv .venv && source .venv/bin/activate
 pip install -e .
 ```
@@ -33,10 +38,10 @@ limits, noise level and tissue parameters. Then run:
 
 ```bash
 # A small run that checks everything works
-dmri-protocol-opt optimize examples/configs/cexi_quick.yaml --output-dir runs/quick
+polar-dmri optimize examples/configs/cexi_quick.yaml --output-dir runs/quick
 
 # Evaluate the result; repeat --protocol to compare several under matched noise
-dmri-protocol-opt evaluate examples/configs/cexi_quick.yaml \
+polar-dmri evaluate examples/configs/cexi_quick.yaml \
     --protocol optimized=runs/quick/best_protocol.csv
 ```
 
@@ -46,20 +51,20 @@ per shell.
 ### From Python
 
 ```python
-import dmri_protocol_opt as dpo
+import polar_dmri as polar
 
 def main():
-    model = dpo.CEXI(T2=60e-3)
-    substrates = dpo.make_substrate_grid(
+    model = polar.CEXI(T2=60e-3)
+    substrates = polar.make_substrate_grid(
         {"R": [3, 8], "Di": [1e-9], "De": [2e-9], "f": [0.5], "kappa": [5, 30]}
     )
 
-    result = dpo.optimize_protocol(
+    result = polar.optimize_protocol(
         model,
         substrates,
         n_shells=8,
-        constraints=dpo.ScannerConstraints(G_bounds=(0.010, 0.080), te_max=100e-3),
-        noise=dpo.RicianNoise(snr=20, te_ref=70e-3, t2=60e-3),
+        constraints=polar.ScannerConstraints(G_bounds=(0.010, 0.080), te_max=100e-3),
+        noise=polar.RicianNoise(snr=20, te_ref=70e-3, t2=60e-3),
         loss_parameters=["R", "Di", "De", "f", "kappa"],
         seed=1,
         output_dir="runs/my_protocol",
@@ -70,8 +75,8 @@ if __name__ == "__main__":
     main()
 ```
 
-All five CEXI parameters are always fitted. `loss_parameters` sets which of them count
-in the loss, so you can list all of them, as here, or only the ones you care about.
+All five CEXI parameters are fitted. `loss_parameters` sets which of them count
+in the loss.
 
 ## What you configure
 
@@ -87,7 +92,10 @@ in the loss, so you can list all of them, as here, or only the ones you care abo
 | `n_directions` | Directions averaged per shell | 20 |
 
 
-## CEXI parameters
+## Example signal model: CEXI
+
+CEXI (Cellular Exchange Imaging) models permeable spheres in an extracellular space. Its
+parameters are:
 
 | Parameter | Meaning | Unit | Default fit range |
 |---|---|---|---|
@@ -122,5 +130,5 @@ If you use this software, please cite:
 
 ## License
 
-Copyright 2026 Ekin Taskin. Apache License 2.0; see [LICENSE](LICENSE). The CEXI
-implementation derives from code under the MIT License.
+Apache License 2.0; see [LICENSE](LICENSE). The CEXI implementation derives from code
+under the MIT License.
