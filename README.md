@@ -130,5 +130,7 @@ If you use this software, please cite:
 
 ## License
 
-Apache License 2.0; see [LICENSE](LICENSE). The CEXI implementation derives from code
-under the MIT License.
+POLAR is available under the GNU Affero General Public License v3.0; see
+[LICENSE](LICENSE). The CEXI implementation derives from code under the MIT License.
+
+For use outside the terms of the AGPL, commercial licenses are available.

@@ -7,7 +7,7 @@ name = "polar-dmri"
 description = "Diffusion MRI protocol design for reliable parameter recovery: a unified framework across biophysical models"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "Apache-2.0"
+license = "AGPL-3.0-only"
 license-files = ["LICENSE"]
 authors = [{ name = "Ekin Taskin" }]
 dynamic = ["version"]
