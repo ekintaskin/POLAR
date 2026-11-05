@@ -1,0 +1,57 @@
+# Full optimization: 75 substrates x 10 noise realizations x 16 candidates per
+# generation.
+
+model:
+  name: cexi
+  T2_ms: 60
+  # Fit search ranges. Uncomment to override individual parameters:
+  # bounds:
+  #   kappa: [0.001, 100]    # um/s
+
+protocol_space:
+  n_shells: 8
+  include_b0: true
+  delta_ms: [5, 40]
+  Delta_ms: [8, 50]
+  G_mT_per_m: [10, 180]
+  min_gap_ms: 3              # minimum Delta - delta
+  te_overhead_ms: 10         # TE = delta + Delta + overhead
+  te_max_ms: 120
+  b_max: null                # s/mm^2; null for no limit
+
+noise:
+  snr: 20                    # b=0 SNR at te_ref_ms
+  te_ref_ms: 70
+  n_directions: 20           # directions averaged per shell
+  n_realizations: 10         # noise draws per substrate, per candidate
+
+substrates:
+  grid:                      # one substrate per combination
+    R: [2, 4, 6, 8, 10]      # um, single radius per substrate
+    # For polydisperse spheres, replace R with radius distribution files (one
+    # radius in um per line; paths are relative to this file):
+    # radii_files: [radii_a.txt, radii_b.txt]
+    Di: [1.0e-9]             # m^2/s
+    De: [2.0e-9]             # m^2/s
+    f: [0.4, 0.5, 0.6]
+    kappa: [0.01, 10, 20, 30, 40]    # um/s
+
+loss:
+  parameters: [R, Di, De, f, kappa]
+  # Relative importance; unlisted parameters have weight 1.
+  weights: {R: 1, Di: 1, De: 1, f: 1, kappa: 1}
+
+optimizer:
+  popsize: 16
+  maxiter: 1000
+  sigma0: 0.2
+  min_generations: 100
+  convergence_window: 50
+  seed: 1
+
+fit:
+  popsize: 16
+  maxiter: 500
+
+evaluation:
+  n_realizations: 100

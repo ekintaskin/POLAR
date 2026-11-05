@@ -1,5 +1,6 @@
 """Optimize diffusion MRI acquisition protocols for parameter recovery."""
 
+from .config import RunConfig, build_run_config, load_run_config
 from .constraints import ScannerConstraints
 from .evaluate import EvaluationResult, compare_protocols, evaluate_protocol, write_summary_csv
 from .fitting import FitResult, FitSettings, fit_signal
@@ -29,14 +30,17 @@ __all__ = [
     "PGSEProtocol",
     "Parameter",
     "RicianNoise",
+    "RunConfig",
     "ScannerConstraints",
     "SignalModel",
     "Substrate",
     "available_models",
+    "build_run_config",
     "compare_protocols",
     "evaluate_protocol",
     "fit_signal",
     "get_model",
+    "load_run_config",
     "make_substrate_grid",
     "optimize_protocol",
     "pgse_b_value",

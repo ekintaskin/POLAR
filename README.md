@@ -1,6 +1,4 @@
-# POLAR
-
-**Protocol Optimization via Loss Assessing Parameter Recovery**
+# POLAR - Protocol Optimization via Loss Assessing Parameter Recovery
 
 Diffusion MRI protocol design for reliable parameter recovery: a unified framework across biophysical models
 
@@ -33,16 +31,15 @@ pip install -e .
 
 ### From the command line
 
-Copy a configuration from [examples/configs](examples/configs), and set your scanner
+Copy [cexi_default.yaml](examples/configs/cexi_default.yaml), and set your scanner
 limits, noise level and tissue parameters. Then run:
 
 ```bash
-# A small run that checks everything works
-polar-dmri optimize examples/configs/cexi_quick.yaml --output-dir runs/quick
+polar-dmri optimize examples/configs/cexi_default.yaml --output-dir runs/my_protocol
 
 # Evaluate the result; repeat --protocol to compare several under matched noise
-polar-dmri evaluate examples/configs/cexi_quick.yaml \
-    --protocol optimized=runs/quick/best_protocol.csv
+polar-dmri evaluate examples/configs/cexi_default.yaml \
+    --protocol optimized=runs/my_protocol/best_protocol.csv
 ```
 
 A protocol CSV needs the columns `delta_ms`, `Delta_ms` and `G_mT_per_m`, with one row
