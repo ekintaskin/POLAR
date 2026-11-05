@@ -82,7 +82,7 @@ in the loss.
 
 | Setting | Meaning | Default |
 |---|---|---|
-| `delta_bounds`, `big_delta_bounds` | Range of δ and Δ | 5–40 ms, 5–50 ms |
+| `delta_bounds`, `big_delta_bounds` | Range of δ and Δ | 5–40 ms, 8–50 ms |
 | `G_bounds` | Gradient strength range | 10–180 mT/m |
 | `min_gap` | Minimum Δ − δ | 3 ms |
 | `te_overhead` | TE = δ + Δ + overhead | 10 ms |
@@ -90,6 +90,8 @@ in the loss.
 | `b_max` | Largest b-value | none |
 | `snr`, `te_ref`, `t2` | Noise level: σ = exp(−TE_ref / T2) / SNR | 20, 70 ms, 60 ms |
 | `n_directions` | Directions averaged per shell | 20 |
+| `maxiter` | Most generations | 1000 |
+| `min_generations`, `convergence_window` | Stop once the median population loss stops improving between consecutive windows | 100, 50 generations |
 
 
 ## Example signal model: CEXI
@@ -104,6 +106,24 @@ parameters are:
 | `De` | Extracellular diffusivity | m²/s | 1–3.5 × 10⁻⁹ |
 | `f` | Intracellular volume fraction | | 0.3–0.85 |
 | `kappa` | Membrane permeability | µm/s | 0.001–100 |
+
+### Single radius or radius distribution
+
+Signals are generated from a single radius `R` by default. To generate them from
+polydisperse spheres instead, replace `R` with radius distribution files, which have one
+radius in µm per line:
+
+```python
+substrates = model.make_substrates(
+    {"radii_files": ["radii_a.txt", "radii_b.txt"],
+     "Di": [1e-9], "De": [2e-9], "f": [0.5], "kappa": [5, 30]}
+)
+```
+
+In a configuration file, put `radii_files` under `substrates: grid:`, with paths relative
+to that file. Spheres contribute to the signal by volume, and exchange uses the
+volume-weighted radius. The fit still assumes a single radius, and is scored against the
+volume-weighted radius.
 
 
 ## Outputs
