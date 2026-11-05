@@ -24,9 +24,6 @@ dependencies = [
     "scipy>=1.10",
 ]
 
-[project.optional-dependencies]
-test = ["pytest>=7"]
-
 [project.scripts]
 polar-dmri = "polar_dmri.cli:main"
 
@@ -35,7 +32,3 @@ version = { attr = "polar_dmri.__version__" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-markers = ["slow: statistical checks that take more than a few seconds"]
