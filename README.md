@@ -2,19 +2,12 @@
 
 Diffusion MRI protocol design for reliable parameter recovery: a unified framework across biophysical models
 
-To use POLAR with any signal model, follow [model interface](docs/adding_a_model.md).
+The [tutorial](examples/tutorial.ipynb) shows how to use POLAR.
 [CEXI](#example-signal-model-cexi) is demonstrated as an example signal model.
 
 ## How it works
 
-```
-       ┌───────────────── CMA-ES proposes candidate protocols ◄──────────────┐
-       ▼                                                                     │
-  for each substrate and noise realization:                                  │
-    simulate signal ──► add Rician noise ──► fit the model ──► squared error │
-       │                                                                     │
-       └───────────────── mean error over all of them = loss ────────────────┘
-```
+![POLAR framework: inputs, optimization loop and outputs](assets/framework.png)
 
 ## Installation
 
