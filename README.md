@@ -140,6 +140,8 @@ If you use this software, please cite:
 
 ## License
 
+Copyright (C) 2026 Ekin Taskin
+
 POLAR is available under the GNU Affero General Public License v3.0; see
 [LICENSE](LICENSE). The CEXI implementation derives from code under the MIT License.
 

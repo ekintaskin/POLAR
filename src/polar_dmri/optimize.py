@@ -143,8 +143,12 @@ def optimize_protocol(
     squared_errors(model, truth[0], truth[0], loss_parameters, weights)
 
     if seed is None:
-        seed = int(np.random.SeedSequence().generate_state(1)[0])
-    seed = int(seed) % (2**32 - 1) + 1  
+        seed = int(np.random.SeedSequence().generate_state(1)[0]) % (2**32 - 1) + 1
+    seed = int(seed)
+    if not 1 <= seed < 2**32:
+        raise ValueError(
+            "seed must be between 1 and 2**32 - 1: CMA-ES treats 0 as 'seed from the clock'."
+        )
     noise_rng = np.random.default_rng(seed)
 
     n_variables = 3 * n_shells
