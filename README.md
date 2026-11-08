@@ -68,7 +68,7 @@ if __name__ == "__main__":
 All five CEXI parameters are fitted. `loss_parameters` sets which of them count
 in the loss.
 
-## What you configure
+## Configuration
 
 | Setting | Meaning | Default |
 |---|---|---|
